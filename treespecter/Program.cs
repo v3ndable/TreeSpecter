@@ -1,9 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
 using Spectre.Console;
 
 class Program
 {
+    static List<string> ignorePatterns = new();
+
     static void Main(string[] args)
     {
         string path = Directory.GetCurrentDirectory();
@@ -21,6 +24,12 @@ class Program
 
             else if (arg == "--copy")
                 copyMode = true;
+
+            else if (arg.StartsWith("--ignore="))
+                ignorePatterns.AddRange(arg.Split('=')[1].Split(',', StringSplitOptions.RemoveEmptyEntries));
+
+            else if (arg.StartsWith("--ignore-file="))
+                LoadIgnoreFile(arg.Split('=')[1]);
 
             else if (arg == "--help")
             {
@@ -42,6 +51,33 @@ class Program
         PrintDirectory(path, 0, maxDepth, showContent, copyMode);
     }
 
+    static void LoadIgnoreFile(string filePath)
+    {
+        if (!File.Exists(filePath)) return;
+
+        foreach (var line in File.ReadAllLines(filePath))
+        {
+            var trimmed = line.Trim();
+            if (!string.IsNullOrWhiteSpace(trimmed) && !trimmed.StartsWith("#"))
+                ignorePatterns.Add(trimmed);
+        }
+    }
+
+    static bool ShouldIgnore(string name)
+    {
+        foreach (var pattern in ignorePatterns)
+        {
+            if (pattern.StartsWith("*"))
+            {
+                if (name.EndsWith(pattern.TrimStart('*')))
+                    return true;
+            }
+            else if (string.Equals(name, pattern, StringComparison.OrdinalIgnoreCase))
+                return true;
+        }
+        return false;
+    }
+
     static void ShowHelp()
     {
         AnsiConsole.MarkupLine("[bold yellow]TreeSpecter Help[/]\n");
@@ -50,10 +86,12 @@ class Program
         AnsiConsole.WriteLine("  treespecter [path] [options]\n");
 
         AnsiConsole.WriteLine("Options:");
-        AnsiConsole.WriteLine("  --depth=n     Max depth");
-        AnsiConsole.WriteLine("  --content     Show file contents");
-        AnsiConsole.WriteLine("  --copy        Output copy-friendly");
-        AnsiConsole.WriteLine("  --help        Show help");
+        AnsiConsole.WriteLine("  --depth=n         Max depth");
+        AnsiConsole.WriteLine("  --content         Show file contents");
+        AnsiConsole.WriteLine("  --copy            Output copy-friendly");
+        AnsiConsole.WriteLine("  --ignore=list     Ignore files/folders");
+        AnsiConsole.WriteLine("  --ignore-file     Load ignore file");
+        AnsiConsole.WriteLine("  --help            Show help");
     }
 
     static void PrintDirectory(string path, int depth, int maxDepth, bool showContent, bool copyMode)
@@ -62,6 +100,8 @@ class Program
 
         string indent = new string(' ', depth * 2);
         string folderName = Path.GetFileName(path);
+
+        if (ShouldIgnore(folderName)) return;
 
         if (!copyMode)
             AnsiConsole.MarkupLine($"{indent}[blue]{folderName}[/]");
@@ -73,6 +113,7 @@ class Program
             foreach (var file in Directory.GetFiles(path))
             {
                 string fileName = Path.GetFileName(file);
+                if (ShouldIgnore(fileName)) continue;
 
                 if (!copyMode)
                     AnsiConsole.MarkupLine($"{indent}  [white]- {fileName}[/]");
@@ -108,6 +149,9 @@ class Program
 
             foreach (var dir in Directory.GetDirectories(path))
             {
+                string dirName = Path.GetFileName(dir);
+                if (ShouldIgnore(dirName)) continue;
+
                 PrintDirectory(dir, depth + 1, maxDepth, showContent, copyMode);
             }
         }
@@ -119,4 +163,5 @@ class Program
                 Console.WriteLine($"{indent}(no access)");
         }
     }
+
 }

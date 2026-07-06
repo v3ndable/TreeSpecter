@@ -21,6 +21,7 @@ dotnet --version
 * Recursive directory traversal with tree output
 * Configurable maximum depth
 * Optional file content display
+* Ignore files and folders
 * Plain text output mode
 * Colored terminal output (Spectre.Console)
 * Basic handling of access/permission errors
@@ -45,12 +46,14 @@ treespecter [path] [options]
 
 ## Options
 
-| Option    | Description                   |
-| --------- | ----------------------------- |
-| --depth=n | Maximum recursion depth       |
-| --content | Show file contents            |
-| --copy    | Plain text output (no colors) |
-| --help    | Show help message             |
+| Option             | Description                             |
+| ------------------ | --------------------------------------- |
+| --depth=n          | Maximum recursion depth                 |
+| --content          | Show file contents                      |
+| --copy             | Plain text output (no colors)           |
+| --ignore=list      | Ignore files/folders                    |
+| --ignore-file=path | Load ignore patterns from file          |
+| --help             | Show help message                       |
 
 ### Save output to a file
 
@@ -61,6 +64,30 @@ treespecter --content --copy > output.txt
 ```
 
 This produces a plain text file without colors or formatting.
+
+### Ignore Examples
+
+#### Inline ignore
+
+```bash
+treespecter --ignore=node_modules,.git,bin
+```
+
+#### Using a file
+
+```bash
+treespecter --ignore-file=.ignore
+```
+
+Supports simple patterns like:
+
+```bash
+node_modules
+bin
+obj
+.git
+*.log
+```
 
 ---
 
@@ -143,4 +170,4 @@ sudo chmod +x /usr/local/bin/treespecter
 
 * Large files are printed without filtering when using `--content`
 * Access-restricted folders are skipped with a warning
-* Designed for simple and fast directory inspection
+* Ignore rules are simple pattern-based (not full gitignore spec)
