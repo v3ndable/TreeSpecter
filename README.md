@@ -171,3 +171,6 @@ sudo chmod +x /usr/local/bin/treespecter
 * Large files are printed without filtering when using `--content`
 * Access-restricted folders are skipped with a warning
 * Ignore rules are simple pattern-based (not full gitignore spec)
+
+## License
+MIT — see [LICENSE](LICENSE) for details.
