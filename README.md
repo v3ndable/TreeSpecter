@@ -1,8 +1,18 @@
+<a id="readme-top"></a>
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![GPL-3.0][license-shield]][license-url]
+
+<div align="center">
+
 # TreeSpecter
 TreeSpecter is a command-line tool for displaying directory structures in a tree format.  
 It supports recursive traversal and optional file content output.
 
----
+</div>
 
 ## Requirements
 
@@ -14,8 +24,6 @@ Check installation:
 dotnet --version
 ```
 
----
-
 ## Features
 
 * Recursive directory traversal with tree output
@@ -25,8 +33,6 @@ dotnet --version
 * Plain text output mode
 * Colored terminal output (Spectre.Console)
 * Basic handling of access/permission errors
-
----
 
 ## Usage
 
@@ -41,8 +47,6 @@ dotnet run -- [path] [options]
 ```bash
 treespecter [path] [options]
 ```
-
----
 
 ## Options
 
@@ -89,8 +93,6 @@ obj
 *.log
 ```
 
----
-
 ## Installation
 
 ### Option 1: Build from source
@@ -106,8 +108,6 @@ Run directly:
 ```bash
 dotnet run -- [path] [options]
 ```
-
----
 
 ### Option 2: Publish executable
 
@@ -128,8 +128,6 @@ The executable will be located in:
 ```
 bin/Release/net8.0/<runtime>/publish/
 ```
-
----
 
 ## Global Installation (Recommended)
 
@@ -155,16 +153,12 @@ To run `treespecter` from anywhere:
 
 4. Restart terminal
 
----
-
 ### Linux
 
 ```bash
 sudo mv bin/Release/net8.0/linux-x64/publish/treespecter /usr/local/bin/
 sudo chmod +x /usr/local/bin/treespecter
 ```
-
----
 
 ## Notes
 
@@ -174,3 +168,16 @@ sudo chmod +x /usr/local/bin/treespecter
 
 ## License
 MIT — see [LICENSE](LICENSE) for details.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+[contributors-shield]: https://img.shields.io/github/contributors/v3ndable/TreeSpecter.svg?style=for-the-badge
+[contributors-url]: https://github.com/v3ndable/TreeSpecter/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/v3ndable/TreeSpecter.svg?style=for-the-badge
+[forks-url]: https://github.com/v3ndable/TreeSpecter/network/members
+[stars-shield]: https://img.shields.io/github/stars/v3ndable/TreeSpecter.svg?style=for-the-badge
+[stars-url]: https://github.com/v3ndable/TreeSpecter/stargazers
+[issues-shield]: https://img.shields.io/github/issues/v3ndable/TreeSpecter.svg?style=for-the-badge
+[issues-url]: https://github.com/v3ndable/TreeSpecter/issues
+[license-shield]: https://img.shields.io/github/license/v3ndable/TreeSpecter.svg?style=for-the-badge
+[license-url]: https://github.com/v3ndable/TreeSpecter/blob/master/LICENSE.txt
