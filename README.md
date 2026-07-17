@@ -4,7 +4,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![GPL-3.0][license-shield]][license-url]
+[![MIT License][license-shield]][license-url]
 
 <div align="center">
 
@@ -180,4 +180,4 @@ MIT — see [LICENSE](LICENSE) for details.
 [issues-shield]: https://img.shields.io/github/issues/v3ndable/TreeSpecter.svg?style=for-the-badge
 [issues-url]: https://github.com/v3ndable/TreeSpecter/issues
 [license-shield]: https://img.shields.io/github/license/v3ndable/TreeSpecter.svg?style=for-the-badge
-[license-url]: https://github.com/v3ndable/TreeSpecter/blob/master/LICENSE.txt
+[license-url]: https://github.com/v3ndable/TreeSpecter/blob/master/LICENSE
